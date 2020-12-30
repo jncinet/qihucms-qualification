@@ -18,6 +18,19 @@ $ php artisan migrate
 $ php artisan vendor:publish --provider="Qihucms\Qualification\QualificationServiceProvider"
 ```
 
+### 添加到会员模型
+```php
+...
+use Qihucms\Role\Models\HasQualification
+...
+
+class User extends Authenticatable
+{
+    use HasQualification;
+    ...
+}
+```
+
 ## 后台菜单
 + 个人认证 `qualification/pas`
 + 企业认证 `qualification/cos`

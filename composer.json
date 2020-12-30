@@ -1,0 +1,30 @@
+{
+  "name": "jncinet/qihucms-qualification",
+  "description": "qihucms user qualification.",
+  "keywords": [
+    "laravel",
+    "qihucms",
+    "qualification"
+  ],
+  "homepage": "https://www.qihucms.com",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "zhangye",
+      "email": "y@qilephp.com"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Qihucms\\Qualification\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Qihucms\\Qualification\\QualificationServiceProvider"
+      ]
+    }
+  }
+}

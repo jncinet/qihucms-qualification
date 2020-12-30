@@ -21,7 +21,7 @@ $ php artisan vendor:publish --provider="Qihucms\Qualification\QualificationServ
 ### 添加到会员模型
 ```php
 ...
-use Qihucms\Role\Models\HasQualification
+use Qihucms\Qualification\Models\HasQualification
 ...
 
 class User extends Authenticatable

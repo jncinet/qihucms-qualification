@@ -41,7 +41,6 @@ class CoController extends Controller
 
         });
 
-        $grid->column('id', __('qualification::qualification_co.id'));
         $grid->column('user.username', __('user.username'));
         $grid->column('company_name', __('qualification::qualification_co.company_name'));
         $grid->column('company_id', __('qualification::qualification_co.company_id'));
@@ -63,7 +62,6 @@ class CoController extends Controller
     {
         $show = new Show(QualificationCo::findOrFail($id));
 
-        $show->field('id', __('qualification::qualification_co.id'));
         $show->field('user_id', __('user.username'))->as(function () {
             return $this->user->username ?? '';
         });

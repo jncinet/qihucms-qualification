@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class QualificationPa extends Model
 {
+    protected $primaryKey = 'user_id';
+
+    public $incrementing = false;
+
     protected $fillable = [
         'user_id', 'real_name', 'id_card_no', 'files', 'status'
     ];
@@ -18,7 +22,7 @@ class QualificationPa extends Model
     /**
      * @return BelongsTo
      */
-    public function user() : BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo('App\Models\User');
     }

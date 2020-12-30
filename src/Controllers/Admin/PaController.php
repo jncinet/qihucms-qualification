@@ -41,7 +41,6 @@ class PaController extends Controller
 
         });
 
-        $grid->column('id', __('qualification::qualification_pa.id'));
         $grid->column('user.username', __('user.username'));
         $grid->column('real_name', __('qualification::qualification_pa.real_name'));
         $grid->column('id_card_no', __('qualification::qualification_pa.id_card_no'));
@@ -63,7 +62,6 @@ class PaController extends Controller
     {
         $show = new Show(QualificationPa::findOrFail($id));
 
-        $show->field('id', __('qualification::qualification_pa.id'));
         $show->field('user_id', __('user.username'))->as(function () {
             return $this->user->username ?? '';
         });

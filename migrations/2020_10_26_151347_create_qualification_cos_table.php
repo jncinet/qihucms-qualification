@@ -14,8 +14,7 @@ class CreateQualificationCosTable extends Migration
     public function up()
     {
         Schema::create('qualification_cos', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id')->index()->comment('会员ID');
+            $table->unsignedBigInteger('user_id')->primary()->comment('会员ID');
             $table->string('company_name')->comment('公司名称');
             $table->string('company_id')->comment('统一信用代码');
             $table->json('files')->nullable()->comment('证明文件');

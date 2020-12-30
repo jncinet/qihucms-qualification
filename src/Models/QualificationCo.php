@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class QualificationCo extends Model
 {
+    protected $primaryKey = 'user_id';
+
+    public $incrementing = false;
+
     protected $fillable = [
         'user_id', 'company_name', 'company_id', 'files', 'contacts',
         'mobile', 'email', 'address', 'status'

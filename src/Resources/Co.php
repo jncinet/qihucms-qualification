@@ -2,6 +2,7 @@
 
 namespace Qihucms\Qualification\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,7 +23,6 @@ class Co extends JsonResource
             }
         }
         return [
-            'id' => $this->id,
             'user_id' => $this->user_id,
             'company_name' => $this->company_name,
             'company_id' => $this->company_id,
@@ -31,7 +31,9 @@ class Co extends JsonResource
             'mobile' => $this->mobile,
             'email' => $this->email,
             'address' => $this->address,
-            'status' => $this->status
+            'status' => $this->status,
+            'created_at' => Carbon::parse($this->created_at)->diffForHumans(),
+            'updated_at' => Carbon::parse($this->updated_at)->diffForHumans(),
         ];
     }
 }

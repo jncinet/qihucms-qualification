@@ -14,8 +14,7 @@ class CreateQualificationPasTable extends Migration
     public function up()
     {
         Schema::create('qualification_pas', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id')->index()->comment('会员ID');
+            $table->unsignedBigInteger('user_id')->primary()->comment('会员ID');
             $table->string('real_name')->comment('真实姓名');
             $table->string('id_card_no')->comment('身份证号');
             $table->json('files')->nullable()->comment('证明文件');

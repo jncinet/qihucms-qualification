@@ -19,7 +19,17 @@ class CoController extends ApiController
     }
 
     /**
-     * 添加认证
+     * 查询认证
+     *
+     * @return CoResource
+     */
+    public function check()
+    {
+        return new CoResource($this->co->findOrFail(Auth::id()));
+    }
+
+    /**
+     * 修改认证
      *
      * @param  CoStoreRequest $request
      * @return \Illuminate\Http\JsonResponse|CoResource
@@ -30,63 +40,12 @@ class CoController extends ApiController
             'company_name', 'company_id', 'files', 'contacts',
             'mobile', 'email', 'address'
         ]);
-        $data = array_merge($data, ['user_id' => Auth::id(), 'status' => 0]);
-        $result = $this->co->create($data);
+        $data['status'] = 0;
 
-        if ($result) {
-            return new CoResource($result);
-        }
-
-        return $this->jsonResponse([__('qualification::message.create_fail')], '', 422);
-    }
-
-    /**
-     * 查询认证
-     *
-     * @param  int $id
-     * @return CoResource
-     */
-    public function show($id)
-    {
-        $result = $this->co->findOrFail($id);
-
-        return new CoResource($result);
-    }
-
-    /**
-     * 修改认证
-     *
-     * @param  CoStoreRequest $request
-     * @param  int $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function update(CoStoreRequest $request, $id)
-    {
-        $data = $request->only([
-            'company_name', 'company_id', 'files', 'contacts',
-            'mobile', 'email', 'address'
-        ]);
-        $data = array_merge($data, ['user_id' => Auth::id(), 'status' => 0]);
-
-        if ($this->co->where('user_id', Auth::id())->where('id', $id)->update($data)) {
-            return $this->jsonResponse(['id' => intval($id)]);
+        if ($this->co->updateOrCreate(['user_id' => Auth::id()], $data)) {
+            return new CoResource($this->co->findOrFail(Auth::id()));
         }
 
         return $this->jsonResponse([__('qualification::message.update_fail')], '', 422);
-    }
-
-    /**
-     * 删除认证
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function destroy($id)
-    {
-        if ($this->co->where('user_id', Auth::id())->where('id', $id)->delete()) {
-            return $this->jsonResponse(['id' => intval($id)]);
-        }
-
-        return $this->jsonResponse([__('qualification::message.delete_fail')], '', 422);
     }
 }

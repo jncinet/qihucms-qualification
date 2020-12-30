@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'id' => 'ID',
     'user_id' => '会员ID',
     'company_name' => '公司名称',
     'company_id' => '统一信用代码',

@@ -23,41 +23,92 @@ $ php artisan vendor:publish --provider="Qihucms\Qualification\QualificationServ
 + 企业认证 `qualification/cos`
 
 ## 接口
-### 所有可开通的功能
-+ 请求方式：GET
-+ 请求地址：role/roles
+### 个人认证
++ 请求方式：POST
++ 请求地址：qualification/pas
 + 请求参数：
 ```
 {
-    "name": "名称", // 可选
-    "slug": "标识", // 可选
-    "currency_type_id": 1, // 支付货币类型 可选
-    "times": 1, // 有效时长 可选
-    "unit": "days", // 有效时长单位 可选
-    "is_pa": 1, // 是否需要完成个人认证 可选
-    "is_co": 0, // 是否需要完成企业认证 可选
+    "real_name": "张三",
+    "id_card_no": "4324324324",
+    "files": ['图片地址1','图片地址2'],
 }
 ```
 + 返回值：
 ```
 {
-    "data": [
-        {
-            'id': 1,
-            'name': "名称",
-            'slug': "标识",
-            'desc': "介绍",
-            'times': 3,
-            'unit': "days",
-            'is_qualification_pa': 0,
-            'is_qualification_co': 1,
-            'price': 1.00,
-            'currency_type': {货币详细信息},
-        },
-        ...
-    ],
-    "meta": {},
-    "links": {},
+    "user_id": 1,
+    "real_name": "张三",
+    "id_card_no": "3424324234",
+    "files": ['图片地址1','图片地址2'],
+    "status": 1,
+    "created_at": "2分钟前",
+    "updated_at": "1分钟前",
+}
+```
+
+### 个人认证查询
++ 请求方式：GET
++ 请求地址：qualification/pas
++ 返回值：
+```
+{
+    "user_id": 1,
+    "real_name": "张三",
+    "id_card_no": "3424324234",
+    "files": ['图片地址1','图片地址2'],
+    "status": 1,
+    "created_at": "2分钟前",
+    "updated_at": "1分钟前",
+}
+```
+
+### 企业认证
++ 请求方式：POST
++ 请求地址：qualification/cos
++ 请求参数：
+```
+{
+    "company_name": "**公司",
+    "company_id": "342432324234",
+    "files": ['图片地址1','图片地址2'],
+    "mobile": "手机号",
+    "email": "邮箱",
+    "address": "地址",
+}
+```
++ 返回值：
+```
+{
+    "user_id": 1,
+    "company_name": "**公司",
+    "company_id": "342432324234",
+    "files": ['图片地址1','图片地址2'],
+    "mobile": "手机号",
+    "email": "邮箱",
+    "address": "地址",
+    "status": 1,
+    "created_at": "2分钟前",
+    "updated_at": "1分钟前",
+}
+```
+
+### 企业认证查询
++ 请求方式：GET
++ 请求地址：qualification/cos
++ 返回值：
+```
+{
+    "user_id": 1,
+    "company_name": "**公司",
+    "company_id": "342432324234",
+    "files": ['图片地址1','图片地址2'],
+    "mobile": "手机号",
+    "email": "邮箱",
+    "address": "地址",
+    "status": 1,
+    "created_at": "2分钟前",
+    "updated_at": "1分钟前",
 }
 ```
 
@@ -82,10 +133,10 @@ $ php artisan vendor:publish --provider="Qihucms\Qualification\QualificationServ
 | company_name      | varchar   | 255       |           |           | 公司名称   |
 | company_id        | varchar   | 255       |           |           | 统一信用代码 |
 | files             | json      |           | Y         | NULL      | 证明文件   |
-| contacts          | varchar   |           |           |           | 联系人    |
-| mobile            | varchar   |           |           |           | 手机号    |
-| email             | varchar   |           | Y         | NULL      | 邮箱      |
-| address           | varchar   |           | Y         | NULL      | 地址      |
+| contacts          | varchar   | 255       |           |           | 联系人    |
+| mobile            | varchar   | 255       |           |           | 手机号    |
+| email             | varchar   | 255       | Y         | NULL      | 邮箱      |
+| address           | varchar   | 255       | Y         | NULL      | 地址      |
 | status            | tinyint   |           |           | 0         | 状态      |
 | created_at        | timestamp |           | Y         | NULL      | 创建时间   |
 | updated_at        | timestamp |           | Y         | NULL      | 更新时间   |

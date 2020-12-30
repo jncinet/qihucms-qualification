@@ -19,7 +19,17 @@ class PaController extends ApiController
     }
 
     /**
-     * 添加认证
+     * 查询认证
+     *
+     * @return PaResource
+     */
+    public function check()
+    {
+        return new PaResource($this->pa->find(Auth::id()));
+    }
+
+    /**
+     * 修改认证
      *
      * @param  PaStoreRequest $request
      * @return \Illuminate\Http\JsonResponse|PaResource
@@ -29,62 +39,12 @@ class PaController extends ApiController
         $data = $request->only([
             'real_name', 'id_card_no', 'files'
         ]);
-        $data = array_merge($data, ['user_id' => Auth::id(), 'status' => 0]);
-        $result = $this->pa->create($data);
+        $data['status'] = 0;
 
-        if ($result) {
-            return new PaResource($result);
-        }
-
-        return $this->jsonResponse([__('qualification::message.create_fail')], '', 422);
-    }
-
-    /**
-     * 查询认证
-     *
-     * @param  int $id
-     * @return PaResource
-     */
-    public function show($id)
-    {
-        $result = $this->pa->findOrFail($id);
-
-        return new PaResource($result);
-    }
-
-    /**
-     * 修改认证
-     *
-     * @param  PaStoreRequest $request
-     * @param  int $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function update(PaStoreRequest $request, $id)
-    {
-        $data = $request->only([
-            'real_name', 'id_card_no', 'files'
-        ]);
-        $data = array_merge($data, ['user_id' => Auth::id(), 'status' => 0]);
-
-        if ($this->pa->where('user_id', Auth::id())->where('id', $id)->update($data)) {
-            return $this->jsonResponse(['id' => intval($id)]);
+        if ($this->pa->updateOrCreate(['user_id' => Auth::id()], $data)) {
+            return new PaResource($this->pa->find(Auth::id()));
         }
 
         return $this->jsonResponse([__('qualification::message.update_fail')], '', 422);
-    }
-
-    /**
-     * 删除认证
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function destroy($id)
-    {
-        if ($this->pa->where('user_id', Auth::id())->where('id', $id)->delete()) {
-            return $this->jsonResponse(['id' => intval($id)]);
-        }
-
-        return $this->jsonResponse([__('qualification::message.delete_fail')], '', 422);
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
 return [
-    'id' => 'ID',
     'user_id' => '会员ID',
     'real_name' => '真实姓名',
     'id_card_no' => '身份证号',
